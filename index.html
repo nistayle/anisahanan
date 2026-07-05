@@ -1,0 +1,695 @@
+<!DOCTYPE html>
+<html lang="id" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Anisa Tri Hanan: Digital Business Student who has interest in Data Science and Machine Learning</title>
+    <link rel="icon" type="image/x-icon" href="assets/atas.png">
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <!-- FontAwesome untuk Icon -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        /* Animasi Mengetik Formal & Halus */
+        .typing-effect {
+            display: inline-block;
+            border-right: 2px solid #ec4899; /* Pink Cursor */
+            white-space: nowrap;
+            overflow: hidden;
+            width: 0;
+            animation: 
+                typing 4s steps(35, end) infinite alternate,
+                blink 0.8s step-end infinite;
+        }
+
+        @keyframes typing {
+            0% { width: 0; }
+            75% { width: 100%; }
+            100% { width: 100%; }
+        }
+
+        @keyframes blink {
+            from, to { border-color: transparent }
+            50% { border-color: #ec4899; }
+        }
+
+        /* Efek Glow Mengikuti Kursor */
+        .glow-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            pointer-events: none;
+            z-index: 1;
+            background: radial-gradient(
+                600px circle at var(--mouse-x, 0px) var(--mouse-y, 0px),
+                rgba(168, 85, 247, 0.08), /* Purple-500 */
+                rgba(236, 72, 153, 0.05), /* Pink-500 */
+                transparent 80%
+            );
+            transition: background 0.1s ease;
+        }
+
+        /* Scroll Animation Styles */
+        .reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s ease;
+        }
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .skills-portfolio-section {
+  background-color: #0b0b0c; /* Hitam pekat */
+  padding: 60px 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.canvas-container {
+  width: 100%;
+  max-width: 1000px;
+  min-height: 500px;
+  background-color: #000000;
+  border: 3px solid #ff79c6; /* Border Pink Khas Kamu */
+  border-radius: 8px;
+  box-shadow: 0 0 20px rgba(255, 121, 198, 0.2); /* Efek glow tipis */
+  display: flex;
+  flex-direction: row;
+  position: relative;
+  overflow: hidden;
+  padding: 40px;
+  gap: 20px; /* Memberi jarak aman antara area kiri dan area kanan */
+}
+
+/* --- PERBAIKAN SISI KIRI (STRUKTUR) --- */
+.skills-cluster-side {
+  flex: 1.2; /* Mengambil ruang sedikit lebih besar di kiri */
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start; /* Mengarahkan konten ke kiri agar rapi */
+}
+
+.section-title {
+  color: #ff79c6; /* Teks Warna Pink */
+  font-size: 24px;
+  margin-bottom: 25px;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+}
+
+/* Container Utama Button - SEKARANG JADI RAPET & TERKONTROL */
+.skills-buttons-container {
+  position: relative;
+  width: 100%;
+  max-width: 420px; /* Membatasi lebar agar tombol mengumpul padat dan tidak melebar ke kanan */
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px; /* Mengurangi gap sedikit agar lebih rapat */
+  justify-content: flex-start; /* Menjaga kumpulan tombol tetap berbaris rapi dari kiri */
+  align-items: center;
+}
+
+/* Desain Button Kapsul Melayang */
+.skill-btn {
+  background: rgba(255, 121, 198, 0.05); /* Transparan Pink Tipis */
+  color: #ffffff;
+  border: 1.5px solid #ff79c6; /* Border Pink */
+  padding: 8px 16px; /* Dikecilkan sedikit agar rapet dan pas */
+  border-radius: 50px; /* Bentuk Kapsul */
+  font-size: 13px; /* Ukuran font disesuaikan */
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+  transition: all 0.3s ease;
+}
+
+/* Efek pas kursor didekatkan (Hover) */
+.skill-btn:hover {
+  background: #ff79c6;
+  color: #000000;
+  box-shadow: 0 0 15px #ff79c6;
+  transform: scale(1.05) translateY(-5px) !important;
+}
+
+/* Ikon/Emoji di dalam button */
+.skill-btn span {
+  font-size: 14px;
+}
+
+/* --- PERBAIKAN SISI KANAN (MOCKUPS HP AGAR TIDAK NABRAK KELUAR) --- */
+.mockups-side {
+  flex: 0.8; /* Membatasi ruang sisi kanan agar pas dengan mockup */
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 380px;
+}
+
+.phone-mockup {
+  position: absolute;
+  width: 180px; /* Sedikit dikecilkan agar proporsional di dalam kanvas */
+  transition: transform 0.3s ease;
+}
+
+.phone-mockup img {
+  width: 100%;
+  height: auto;
+  border-radius: 24px;
+}
+
+/* HP Depan (Bebek) - Posisinya digeser aman menggunakan persentase */
+.phone-front {
+  z-index: 3;
+  right: 25%; 
+  bottom: 15px;
+  transform: rotate(-5deg);
+}
+
+/* HP Belakang (Gelap) */
+.phone-back {
+  z-index: 2;
+  right: 5%;
+  top: 15px;
+  transform: rotate(5deg);
+  opacity: 0.8;
+}
+
+/* --- Responsif untuk layar HP --- */
+@media (max-width: 768px) {
+  .canvas-container {
+    flex-direction: column;
+    gap: 40px;
+    padding: 20px;
+  }
+  
+  .skills-cluster-side {
+    align-items: center;
+  }
+  
+  .skills-buttons-container {
+    justify-content: center;
+    max-width: 100%;
+  }
+
+  .mockups-side {
+    min-height: 320px;
+    width: 100%;
+  }
+
+  .phone-front {
+    right: 30%;
+  }
+  
+  .phone-back {
+    right: 15%;
+  }
+}
+
+/* --- ANIMASI MELAYANG (Tetap Dipertahankan) --- */
+.float-1 { animation: floatBtnA 3.5s ease-in-out infinite; }
+.float-2 { animation: floatBtnB 4.2s ease-in-out infinite; }
+.float-3 { animation: floatBtnA 3.8s ease-in-out infinite; animation-delay: 0.3s; }
+.float-4 { animation: floatBtnB 4.5s ease-in-out infinite; animation-delay: 0.5s; }
+.float-5 { animation: floatBtnA 4s ease-in-out infinite; animation-delay: 0.8s; }
+.float-6 { animation: floatBtnB 3.7s ease-in-out infinite; animation-delay: 0.2s; }
+.float-7 { animation: floatBtnA 4.6s ease-in-out infinite; animation-delay: 1s; }
+.float-8 { animation: floatBtnB 3.9s ease-in-out infinite; animation-delay: 0.4s; }
+.float-9 { animation: floatBtnA 5s ease-in-out infinite; color: #ff79c6; border-style: dashed; }
+
+@keyframes floatBtnA {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-10px); }
+}
+
+@keyframes floatBtnB {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-7px) translateX(3px); }
+}
+
+.floating-element {
+  animation: floatAnimation 4s ease-in-out infinite;
+}
+
+@keyframes floatAnimation {
+  0% { transform: translateY(0px) rotate(var(--original-rotation, 0deg)); }
+  50% { transform: translateY(-12px) rotate(var(--original-rotation, 0deg)); }
+  100% { transform: translateY(0px) rotate(var(--original-rotation, 0deg)); }
+}
+
+.phone-front { --original-rotation: -5deg; }
+.phone-back { --original-rotation: 5deg; }
+
+
+    </style>
+</head>
+<body class="bg-zinc-950 text-slate-300 font-sans antialiased relative">
+    
+    <!-- Efek Cahaya Kursor -->
+    <div class="glow-bg" id="cursor-glow"></div>
+
+    <!-- NAVBAR: Mengambang di tengah, rounded melengkung -->
+    <div class="fixed top-4 left-0 right-0 z-50 px-4 sm:px-6 lg:px-8 max-w-4xl mx-auto">
+        <nav class="bg-zinc-900/70 backdrop-blur-md border border-zinc-800/80 rounded-full px-6 py-3 shadow-xl">
+            <div class="flex items-center justify-between">
+                <div class="flex-shrink-0">
+                    <span class="text-sm font-bold tracking-tight text-white">
+                        My<span class="bg-gradient-to-r from-purple-400 to-pink-400 bg-clip-text text-transparent">Portofolio</span>                    
+                    </span>
+                </div>
+                <!-- Desktop Menu -->
+                <div class="hidden md:flex space-x-6 text-[11px] font-semibold tracking-wider uppercase text-slate-400">
+                    <a href="#projek" class="hover:text-pink-400 transition-colors">Projek</a>
+                    <a href="#reputasi" class="hover:text-pink-400 transition-colors">Metrik</a>
+                    <a href="#pengalaman" class="hover:text-pink-400 transition-colors">Pengalaman</a>
+                    <a href="#organisasi" class="hover:text-pink-400 transition-colors">Organisasi</a>
+                    <a href="#sertifikasi" class="hover:text-pink-400 transition-colors">Sertifikasi</a>
+                    <a href="#kejuaraan" class="hover:text-pink-400 transition-colors">Prestasi</a>
+                    <a href="#kontak" class="hover:text-pink-400 transition-colors">Jejaring</a>
+                </div>
+                <!-- Mobile Menu Button -->
+                <div class="md:hidden">
+                    <button id="menu-btn" class="text-slate-400 hover:text-white focus:outline-none">
+                        <i class="fa-solid fa-bars text-lg"></i>
+                    </button>
+                </div>
+            </div>
+            <!-- Mobile Dropdown Menu -->
+            <div id="mobile-menu" class="hidden mt-3 bg-zinc-950/90 border border-zinc-800/80 rounded-2xl p-4 space-y-2 text-[11px] font-semibold uppercase tracking-wider">
+                <a href="#projek" class="block px-3 py-2 rounded-xl text-slate-400 hover:bg-zinc-900 hover:text-pink-400">Projek</a>
+                <a href="#reputasi" class="block px-3 py-2 rounded-xl text-slate-400 hover:bg-zinc-900 hover:text-pink-400">Metrik</a>
+                <a href="#pengalaman" class="block px-3 py-2 rounded-xl text-slate-400 hover:bg-zinc-900 hover:text-pink-400">Pengalaman</a>
+                <a href="#organisasi" class="block px-3 py-2 rounded-xl text-slate-400 hover:bg-zinc-900 hover:text-pink-400">Organisasi</a>
+                <a href="#sertifikasi" class="block px-3 py-2 rounded-xl text-slate-400 hover:bg-zinc-900 hover:text-pink-400">Sertifikasi</a>
+                <a href="#kejuaraan" class="block px-3 py-2 rounded-xl text-slate-400 hover:bg-zinc-900 hover:text-pink-400">Prestasi</a>
+                <a href="#kontak" class="block px-3 py-2 rounded-xl text-slate-400 hover:bg-zinc-900 hover:text-pink-400">Jejaring</a>
+            </div>
+        </nav>
+    </div>
+
+    <!-- HERO SECTION -->
+    <header class="relative pt-32 pb-24 px-4 sm:px-6 lg:px-8 overflow-hidden z-10">
+        <div class="absolute inset-0 bg-[radial-gradient(circle_at_top_left,rgba(168,85,247,0.04),transparent_50%)]"></div>
+        <div class="absolute inset-0 bg-[radial-gradient(circle_at_bottom_right,rgba(236,72,153,0.04),transparent_50%)]"></div>
+        
+        <div class="max-w-5xl mx-auto flex flex-col-reverse md:flex-row items-center justify-between gap-12 relative z-10">
+            <div class="space-y-6 max-w-2xl text-left">
+                <p class="text-xs font-bold uppercase tracking-widest text-purple-400">Portofolio Akademik & Profesional</p>
+                <h1 class="text-4xl sm:text-5xl font-bold text-white tracking-wide leading-tight">
+                    Halo, Saya <span class="bg-gradient-to-r from-purple-400 via-fuchsia-400 to-pink-400 bg-clip-text text-transparent">Anisa Tri Hanan</span>
+                </h1>
+                <div class="h-8">
+                    <span class="text-lg font-medium text-slate-300 tracking-wide typing-effect">
+                        Digital Business Student at PENS | 2D Asset Maker | Data & ML Enthusiast
+                    </span>
+                </div>
+                <p class="text-base text-slate-400 leading-relaxed font-normal">
+                    Saya merupakan lulusan SMK Negeri 10 Semarang dengan jurusan Pengembangan Perangkat Lunak dan Gim, saat ini melanjutkan di bidang bisnis digital dan fokus mengembangkan skill di sains data dan machine learning.
+                </p>
+                <div class="flex flex-wrap gap-4 pt-2">
+                    <!-- Primary Button - Purple to Pink Gradient -->
+                    <a href="#kontak"
+                        class="group relative inline-flex items-center justify-center overflow-hidden rounded-full bg-gradient-to-r from-purple-500 via-fuchsia-500 to-pink-500 px-6 py-3 font-semibold text-white shadow-lg transition-all duration-300 hover:scale-105 hover:-translate-y-1 hover:shadow-[0_0_30px_rgba(236,72,153,0.4)] active:scale-95">
+                        <span class="absolute inset-0 bg-white opacity-0 transition-opacity duration-300 group-hover:opacity-10"></span>
+                        <span class="relative z-10">Hubungkan Jejaring</span>
+                    </a>
+
+                    <!-- Secondary Button -->
+                    <a href="#projek"
+                        class="group inline-flex items-center justify-center rounded-full border border-slate-700 bg-zinc-900 px-6 py-3 font-semibold text-slate-200 shadow-md transition-all duration-300 hover:scale-105 hover:-translate-y-1 hover:border-pink-400 hover:bg-slate-800 hover:text-white active:scale-95">
+                        <span class="transition-transform duration-300 group-hover:translate-x-1">
+                            Lihat Portofolio →
+                        </span>
+                    </a>
+                </div>
+            </div>
+            <div class="w-56 h-56 sm:w-64 sm:h-64 bg-slate-900 p-1.5 rounded-2xl shadow-2xl border border-slate-800/80 flex-shrink-0">
+                <img src="assets/anis2.jpg" alt="Foto Formal" class="w-full h-full object-cover rounded-xl filter brightness-95">
+            </div>
+        </div>
+    </header>
+
+    <!-- 1. SECTION PROJECT -->
+    <section id="projek" class="reveal py-20 max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 border-t border-slate-900 z-10 relative">
+        <div class="mb-12">
+            <span class="text-xs font-bold uppercase tracking-widest text-purple-400">01 / Portofolio Teknis</span>
+            <h2 class="text-2xl font-bold text-white tracking-tight mt-1">Projek Web & Machine Learning</h2>
+        </div>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+            <div class="bg-zinc-900/40 rounded-xl overflow-hidden border border-zinc-800/60 hover:border-pink-500/30 transition-all duration-300 flex flex-col justify-between group">
+                <div>
+                    <div class="h-48 bg-zinc-950 overflow-hidden relative">
+                        <img src="assets/2.png" alt="Project 1" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105">
+                    </div>
+                    <div class="p-6 space-y-3">
+                        <h3 class="text-lg font-bold text-white transition-colors group-hover:text-pink-400">AI Early Warning System untuk prediksi banjir rob di Kota Semarang</h3>
+                        <p class="text-slate-400 text-sm leading-relaxed">LajuRaya SMG adalah platform yang dirancang untuk memprediksi banjir rob yang ada tiga area potensial (dekat dengan kawasan industri). Serta menghadirkan peringatan dini guna membantu mobilitas pekerja perempuan di Kota Semarang.</p>
+                    </div>
+                </div>
+                <div class="p-6 pt-0 flex flex-wrap gap-2">
+                    <span class="px-2.5 py-0.5 text-xs font-medium bg-zinc-900 text-zinc-300 border border-zinc-800 rounded">Python</span>
+                    <span class="px-2.5 py-0.5 text-xs font-medium bg-zinc-900 text-pink-400 border border-pink-500/10 rounded">Scikit-Learn</span>
+                    <span class="px-2.5 py-0.5 text-xs font-medium bg-zinc-900 text-purple-400 border border-purple-500/10 rounded">WhatsApp API</span>
+                </div>
+            </div>
+            <div class="bg-zinc-900/40 rounded-xl overflow-hidden border border-zinc-800/60 hover:border-pink-500/30 transition-all duration-300 flex flex-col justify-between group">
+                <div>
+                    <div class="h-48 bg-zinc-950 overflow-hidden relative">
+                        <img src="assets/1.png" alt="Project 2" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105">
+                    </div>
+                    <div class="p-6 space-y-3">
+                        <h3 class="text-lg font-bold text-white transition-colors group-hover:text-pink-400">GarasiKu: AI-optimized Smart Parking Platform dengan fitur Live Crowd Status</h3>
+                        <p class="text-slate-400 text-sm leading-relaxed">GarasiKu adalah platform smart parking berbasis komunitas yang menghubungkan pencari parkir dengan pemilik lahan lokal secara real-time.</p>
+                    </div>
+                </div>
+                <div class="p-6 pt-0 flex flex-wrap gap-2">
+                    <span class="px-2.5 py-0.5 text-xs font-medium bg-zinc-900 text-zinc-300 border border-zinc-800 rounded">Gemini API</span>
+                    <span class="px-2.5 py-0.5 text-xs font-medium bg-zinc-900 text-pink-400 border border-pink-500/10 rounded">Python</span>
+                    <span class="px-2.5 py-0.5 text-xs font-medium bg-zinc-900 text-purple-400 border border-purple-500/10 rounded">SQL Database</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="skills-portfolio-section">
+  <div class="canvas-container">
+    
+    <!-- SISI KIRI: KLUSTER LOGO SKILLS -->
+    <div class="skills-cluster-side">
+      <h3 class="section-title">My Tech Stack</h3>
+      
+      <div class="skills-buttons-container">
+    <!-- Kamu bisa salin-tempel ini dan ganti teksnya biar makin ramai -->
+    <div class="skill-btn float-1"><span>🎨</span> Figma</div>
+    <div class="skill-btn float-2"><span>🤖</span> Android Studio</div>
+    <div class="skill-btn float-3"><span>⚡</span> Frontend</div>
+    <div class="skill-btn float-4"><span>🟢</span> Node.js</div>
+    <div class="skill-btn float-5"><span>🐍</span> Python</div>
+    <div class="skill-btn float-6"><span>💜</span> Bootstrap</div>
+    <div class="skill-btn float-7"><span>🚀</span> Backend</div>
+    <div class="skill-btn float-8"><span>☕</span> Java / Kotlin</div>
+    <div class="skill-btn float-9"><span>🌌</span> Google Anti-Gravity</div>
+  </div>
+</div>
+
+    <!-- SISI KANAN: FLOATING SMARTPHONE MOCKUPS -->
+    <div class="mockups-side">
+      <!-- Mockup HP Depan (Yang ada bebek kuning) -->
+      <div class="phone-mockup phone-front floating-element" style="animation-delay: 0.3s;">
+        <img src="hp/1.png" alt="Project Preview Front">
+      </div>
+      <!-- Mockup HP Belakang (Yang warna gelap) -->
+      <div class="phone-mockup phone-back floating-element" style="animation-delay: 0.9s;">
+        <img src="hp/2.png" alt="Project Preview Back">
+      </div>
+    </div>
+
+  </div>
+</section>
+
+    <!-- SECTION: METRIK & REPUTASI (KAGGLE & GITHUB) -->
+    <section id="reputasi" class="reveal py-20 max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 border-t border-slate-900 z-10 relative">
+        <div class="mb-12">
+            <span class="text-xs font-bold uppercase tracking-widest text-purple-400">02 / Metrik & Reputasi</span>
+            <h2 class="text-2xl font-bold text-white tracking-tight mt-1">Eksplorasi Kode & Komparasi Data</h2>
+        </div>
+        
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+            <!-- Kartu GitHub Pro -->
+            <div class="bg-zinc-900/30 p-6 rounded-xl border border-zinc-800/80 hover:border-purple-500/20 transition-all">
+                <div class="flex items-center justify-between mb-4">
+                    <div class="flex items-center gap-3">
+                        <i class="fa-brands fa-github text-3xl text-white"></i>
+                        <div>
+                            <h3 class="text-base font-bold text-white">GitHub Repository</h3>
+                            <p class="text-xs text-slate-400">@nistayle</p>
+                        </div>
+                    </div>
+                    <a href="https://github.com/nistayle" target="_blank" class="text-xs text-pink-400 hover:underline">Kunjungi →</a>
+                </div>
+                <!-- GitHub Stats Widget Embed (Otomatis Dark Mode menyesuaikan web) -->
+                <img class="w-full rounded-lg" src="https://github-readme-stats.vercel.app/api?username=nistayle&show_icons=true&theme=dark&hide_border=true&bg_color=09090b&title_color=a855f7&icon_color=ec4899&text_color=cbd5e1" alt="GitHub Stats">
+            </div>
+
+            <!-- Kartu Kaggle Custom -->
+            <div class="bg-zinc-900/30 p-6 rounded-xl border border-zinc-800/80 hover:border-pink-500/20 transition-all flex flex-col justify-between">
+                <div>
+                    <div class="flex items-center justify-between mb-4">
+                        <div class="flex items-center gap-3">
+                            <i class="fa-brands fa-kaggle text-3xl text-pink-400"></i>
+                            <div>
+                                <h3 class="text-base font-bold text-white">Kaggle Data Portfolio</h3>
+                                <p class="text-xs text-slate-400">@anisahanan_</p>
+                            </div>
+                        </div>
+                        <a href="https://www.kaggle.com" target="_blank" class="text-xs text-purple-400 hover:underline">Kunjungi →</a>
+                    </div>
+                    <div class="space-y-3 my-2">
+                        <div class="flex justify-between items-center bg-zinc-950 p-3 rounded-lg border border-zinc-900">
+                            <span class="text-xs text-slate-300 font-medium">Notebooks & Analisis</span>
+                            <span class="px-2 py-0.5 text-[10px] bg-pink-500/10 text-pink-400 border border-pink-500/20 rounded font-bold">Active Contributor</span>
+                        </div>
+                        <div class="flex justify-between items-center bg-zinc-950 p-3 rounded-lg border border-zinc-900">
+                            <span class="text-xs text-slate-300 font-medium">Fokus Topik Riset</span>
+                            <span class="text-xs font-semibold text-white">Machine Learning Classification & EDA</span>
+                        </div>
+                    </div>
+                </div>
+                <p class="text-[11px] text-slate-500 italic mt-2">*Eksplorasi dataset publik, pembersihan data (data cleaning), dan perancangan model prediksi.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- 2. SECTION PENGALAMAN KERJA -->
+    <section id="pengalaman" class="reveal py-20 bg-zinc-900/20 border-y border-zinc-900 z-10 relative">
+        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="mb-12 text-center md:text-left">
+                <span class="text-xs font-bold uppercase tracking-widest text-purple-400">03 / Riwayat Karir</span>
+                <h2 class="text-2xl font-bold text-white tracking-tight mt-1">Pengalaman Kerja Kontributif</h2>
+            </div>
+            <div class="space-y-8 relative before:absolute before:inset-0 before:left-4 sm:before:left-1/2 before:w-[1px] before:bg-slate-800">
+                <div class="relative flex flex-col sm:flex-row items-start sm:justify-between group">
+                    <div class="absolute left-4 sm:left-1/2 w-3 h-3 bg-slate-950 rounded-full -translate-x-1 mt-2 border-2 border-pink-400"></div>
+                    <div class="pl-12 sm:pl-0 sm:w-[45%] text-left sm:text-right">
+                        <span class="text-xs font-bold text-pink-400 block mb-1">Agustus 2025 - Januari 2026</span>
+                        <h3 class="text-base font-bold text-white">Production Operator (Harian Lepas)</h3>
+                        <p class="text-xs text-slate-500 font-medium mb-2">PT New Era Technology Innovation</p>
+                    </div>
+                    <div class="hidden sm:block w-[10%]"></div>
+                    <div class="pl-12 sm:pl-0 sm:w-[45%] bg-zinc-900/40 p-5 rounded-xl border border-zinc-800/60 mt-2 sm:mt-0">
+                        <p class="text-xs text-zinc-400 leading-relaxed">Menjalankan <i>glue machine</i> untuk produksi giftbox perangkat elektronik, seperti laptop, smartphone, dan tablet. Bekerja sama di kelompok produksi dengan target produksi mencapai 6k+ giftbox</p>
+                    </div>
+                </div>
+            </div>
+            <div class="mt-8 space-y-8 relative before:absolute before:inset-0 before:left-4 sm:before:left-1/2 before:w-[1px] before:bg-slate-800">
+                <div class="relative flex flex-col sm:flex-row items-start sm:justify-between group">
+                    <div class="absolute left-4 sm:left-1/2 w-3 h-3 bg-slate-950 rounded-full -translate-x-1 mt-2 border-2 border-pink-400"></div>
+                    <div class="pl-12 sm:pl-0 sm:w-[45%] text-left sm:text-right">
+                        <span class="text-xs font-bold text-pink-400 block mb-1">Juni 2025 - Agustus 2026</span>
+                        <h3 class="text-base font-bold text-white">Harian Lepas: Sortir</h3>
+                        <p class="text-xs text-slate-500 font-medium mb-2">Gudang Shopee Ngaliyan Semarang</p>
+                    </div>
+                    <div class="hidden sm:block w-[10%]"></div>
+                    <div class="pl-12 sm:pl-0 sm:w-[45%] bg-zinc-900/40 p-5 rounded-xl border border-zinc-800/60 mt-2 sm:mt-0">
+                        <p class="text-xs text-zinc-400 leading-relaxed">Melakukan proses penyortiran, pengecekan nomor resi, penyusunan barang logistik e-commerce sesuai area distribusi rute pengiriman Kota Semarang guna mengoptimalisasi rantai pasok.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="mt-8 space-y-8 relative before:absolute before:inset-0 before:left-4 sm:before:left-1/2 before:w-[1px] before:bg-slate-800">
+                <div class="relative flex flex-col sm:flex-row items-start sm:justify-between group">
+                    <div class="absolute left-4 sm:left-1/2 w-3 h-3 bg-slate-950 rounded-full -translate-x-1 mt-2 border-2 border-pink-400"></div>
+                    <div class="pl-12 sm:pl-0 sm:w-[45%] text-left sm:text-right">
+                        <span class="text-xs font-bold text-pink-400 block mb-1">Desember 2024 - Januari 2025</span>
+                        <h3 class="text-base font-bold text-white">Technical Writer (Intern)</h3>
+                        <p class="text-xs text-slate-500 font-medium mb-2">Zicare Indonesia</p>
+                    </div>
+                    <div class="hidden sm:block w-[10%]"></div>
+                    <div class="pl-12 sm:pl-0 sm:w-[45%] bg-zinc-900/40 p-5 rounded-xl border border-zinc-800/60 mt-2 sm:mt-0">
+                        <p class="text-xs text-zinc-400 leading-relaxed">Menyusun dan merancang dokumentasi teknis sistem, petunjuk penggunaan aplikasi (user manual), serta penyusunan panduan API terstruktur untuk integrasi platform layanan kesehatan digital.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 3. SECTION PENGALAMAN ORGANISASI -->
+    <section id="organisasi" class="reveal py-20 max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 z-10 relative">
+        <div class="mb-12">
+            <span class="text-xs font-bold uppercase tracking-widest text-purple-400">04 / Kepemimpinan</span>
+            <h2 class="text-2xl font-bold text-white tracking-tight mt-1">Pengalaman Organisasi & Kontribusi Sosial</h2>
+        </div>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+            <div class="bg-zinc-900/30 rounded-xl border border-zinc-800/80 hover:border-pink-500/20 transition-all flex flex-col sm:flex-row overflow-hidden shadow-md">
+                <div class="sm:w-2/5 h-40 sm:h-auto bg-zinc-950 overflow-hidden relative">
+                    <img src="assets/organisasi1.png" alt="osis" class="w-full h-full object-cover brightness-90">
+                </div>
+                <div class="p-6 sm:w-3/5 flex flex-col justify-center space-y-2">
+                    <span class="text-[10px] font-bold tracking-wider text-purple-400 uppercase">Jabatan Inti</span>
+                    <h3 class="text-base font-bold text-white">Sekretaris 1</h3>
+                    <p class="text-xs text-zinc-500 font-medium">OSIS SMKN 10 SEMARANG</p>
+                    <p class="text-xs text-zinc-400 leading-relaxed">Kabinet OSIS angkatan 2023-2024 yang bertugas dalam mengelola pemberkasan osis, menulis surat resmi, hingga mengkoordinasikan rapat harian anggota</p>
+                </div>
+            </div>
+            <div class="bg-zinc-900/30 rounded-xl border border-zinc-800/80 hover:border-pink-500/20 transition-all flex flex-col sm:flex-row overflow-hidden shadow-md">
+                <div class="sm:w-2/5 h-40 sm:h-auto bg-zinc-950 overflow-hidden relative">
+                    <img src="assets/organisasi2.png" alt="broad" class="w-full h-full object-cover brightness-90">
+                </div>
+                <div class="p-6 sm:w-3/5 flex flex-col justify-center space-y-2">
+                    <span class="text-[10px] font-bold tracking-wider text-purple-400 uppercase">Team Leader</span>
+                    <h3 class="text-base font-bold text-white">Koordinator Grup & Team</h3>
+                    <p class="text-xs text-zinc-500 font-medium">Broadcasting Club SMKN 10 SEMARANG</p>
+                    <p class="text-xs text-zinc-400 leading-relaxed">Mengkoordinasikan aktivitas grup dan tim dalam pelaksanaan kegiatan broadcasting, sekolah, maupun bila liputan di luar area sekolah (berita vhs10tv).</p>
+                </div>
+            </div>
+            <div class="bg-zinc-900/30 rounded-xl border border-zinc-800/80 hover:border-pink-500/20 transition-all flex flex-col sm:flex-row overflow-hidden shadow-md">
+                <div class="sm:w-2/5 h-40 sm:h-auto bg-zinc-950 overflow-hidden relative">
+                    <img src="assets/orga1.jpg" alt="Workshop Data" class="w-full h-full object-cover brightness-90">
+                </div>
+                <div class="p-6 sm:w-3/5 flex flex-col justify-center space-y-2">
+                    <span class="text-[10px] font-bold tracking-wider text-purple-400 uppercase">Divisi Multimedia</span>
+                    <h3 class="text-base font-bold text-white">2D Illustrator & Asset Maker</h3>
+                    <p class="text-xs text-zinc-500 font-medium">Sineas Muda Semarang</p>
+                    <p class="text-xs text-zinc-400 leading-relaxed">Membuat ilustrasi dan aset digital untuk berbagai kebutuhan proyek, seperti film, musik video dan sebagainya.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 4. SECTION PELATIHAN & SERTIFIKASI -->
+    <section id="sertifikasi" class="reveal py-20 bg-zinc-900/20 border-y border-zinc-900 z-10 relative">
+        <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="mb-12">
+                <span class="text-xs font-bold uppercase tracking-widest text-purple-400">05 / Kredensial Valid</span>
+                <h2 class="text-2xl font-bold text-white tracking-tight mt-1">Sertifikasi Profesional & Pelatihan</h2>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div class="bg-zinc-900/40 p-5 rounded-lg border border-zinc-800/80 flex items-start gap-4">
+                    <div class="p-2.5 bg-purple-500/10 rounded-md border border-purple-500/10 text-pink-400">
+                        <i class="fa-solid fa-graduationcap text-lg"></i>
+                    </div>
+                    <div>
+                        <h3 class="text-sm font-bold text-white">Introduction to Artificial Intelligence</h3>
+                        <p class="text-xs text-zinc-400 mb-1">IBM SkillsBuild</p>
+                        <span class="text-[10px] text-zinc-500 font-medium uppercase tracking-wide">ID Sertifikat: ALM-COURSE_4058918</span>
+                    </div>
+                </div>
+                <div class="bg-zinc-900/40 p-5 rounded-lg border border-zinc-800/80 flex items-start gap-4">
+                    <div class="p-2.5 bg-purple-500/10 rounded-md border border-purple-500/10 text-pink-400">
+                        <i class="fa-solid fa-chart-line text-lg"></i>
+                    </div>
+                    <div>
+                        <h3 class="text-sm font-bold text-white">Make an Impact with AI</h3>
+                        <p class="text-xs text-slate-400 mb-1">IBM SkillsBuild</p>
+                        <span class="text-[10px] text-slate-500 font-medium uppercase tracking-wide">ID Sertifikat: ALM-COURSE_4058948</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 5. SECTION KEJUARAAN -->
+    <section id="kejuaraan" class="reveal py-20 max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 z-10 relative">
+        <div class="mb-12">
+            <span class="text-xs font-bold uppercase tracking-widest text-purple-400">06 / Penghargaan</span>
+            <h2 class="text-2xl font-bold text-white tracking-tight mt-1">Kompetisi & Rekam Jejak Prestasi</h2>
+        </div>
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+            <div class="bg-zinc-900/30 p-6 rounded-xl border border-zinc-800/60 relative group hover:border-pink-500/20 transition-colors">
+                <div class="inline-flex items-center justify-center w-10 h-10 rounded-lg bg-purple-500/10 border border-purple-500/10 text-pink-400 mb-4">
+                    <i class="fa-solid fa-award text-lg"></i>
+                </div>
+                <h3 class="text-base font-bold text-white mb-1">Bronze Winner SOS 2023</h3>
+                <p class="text-xs font-semibold text-pink-400 mb-3">Narasi & Indosat Ooredoo</p>
+                <p class="text-xs text-slate-400 leading-relaxed font-normal">Memenangkan juara tiga Save Our Socmed 2023 kategori Mahasiswa dengan film yang berjudul "Ini Kisah Jempol Pedas dan Jempol Bijak".</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- 6. SECTION HUBUNGI SAYA -->
+    <section id="kontak" class="reveal py-20 max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 border-t border-slate-900 z-10 relative">
+        <div class="mb-10 text-center">
+            <span class="text-xs font-bold uppercase tracking-widest text-purple-400">07 / Komunikasi</span>
+            <h2 class="text-2xl font-bold text-white tracking-tight mt-1">Terhubung Melalui Jejaring Sosial</h2>
+            <p class="text-sm text-slate-400 mt-2 max-w-md mx-auto">Mari berdiskusi mengenai teknologi, analisis data, kecerdasan buatan, atau peluang kolaborasi riset melalui platform di bawah ini.</p>
+        </div>
+        
+        <div class="max-w-xl mx-auto grid grid-cols-1 sm:grid-cols-3 gap-4">
+            <a href="https://linkedin.com/in/nisatria10" target="_blank" rel="noopener noreferrer" 
+               class="flex items-center justify-center gap-3 px-5 py-3 bg-zinc-900 hover:bg-zinc-800 text-white font-semibold text-sm rounded-xl border border-slate-800 hover:border-purple-500/30 transition-all group shadow-sm">
+                <i class="fa-brands fa-linkedin text-lg text-slate-400 group-hover:text-pink-400 transition-colors"></i>
+                LinkedIn
+            </a>
+            
+            <a href="https://github.com/nistayle" target="_blank" rel="noopener noreferrer" 
+               class="flex items-center justify-center gap-3 px-5 py-3 bg-zinc-900 hover:bg-zinc-800 text-white font-semibold text-sm rounded-xl border border-slate-800 hover:border-purple-500/30 transition-all group shadow-sm">
+                <i class="fa-brands fa-github text-lg text-slate-400 group-hover:text-pink-400 transition-colors"></i>
+                GitHub
+            </a>
+            
+            <a href="https://instagram.com/anisahanan_" target="_blank" rel="noopener noreferrer" 
+               class="flex items-center justify-center gap-3 px-5 py-3 bg-zinc-900 hover:bg-zinc-800 text-white font-semibold text-sm rounded-xl border border-slate-800 hover:border-purple-500/30 transition-all group shadow-sm">
+                <i class="fa-brands fa-instagram text-lg text-slate-400 group-hover:text-pink-400 transition-colors"></i>
+                Instagram
+            </a>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="bg-zinc-950 text-slate-600 py-8 border-t border-zinc-900 text-center text-xs font-medium z-10 relative">
+        <p>© 2026 Anisa Tri Hanan. Hak Cipta Dilindungi Menurut Undang-Undang.</p>
+    </footer>
+
+    <!-- JAVASCRIPT UTUK MOBILE MENU, MOUSE GLOW & SCROLL REVEAL -->
+    <script>
+        // 1. Mobile Menu
+        const menuBtn = document.getElementById('menu-btn');
+        const mobileMenu = document.getElementById('mobile-menu');
+
+        menuBtn.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+        });
+
+        const links = mobileMenu.querySelectorAll('a');
+        links.forEach(link => {
+            link.addEventListener('click', () => {
+                mobileMenu.classList.add('hidden');
+            });
+        });
+
+        // 2. Mouse Glow Tracking
+        const glowBg = document.getElementById('cursor-glow');
+        window.addEventListener('mousemove', (e) => {
+            glowBg.style.setProperty('--mouse-x', `${e.clientX}px`);
+            glowBg.style.setProperty('--mouse-y', `${e.clientY}px`);
+        });
+
+        // 3. Scroll Reveal Effect
+        const reveals = document.querySelectorAll('.reveal');
+        const revealOnScroll = () => {
+            for (let i = 0; i < reveals.length; i++) {
+                const windowHeight = window.innerHeight;
+                const elementTop = reveals[i].getBoundingClientRect().top;
+                const elementVisible = 100; // Trigger effect when element is 100px from viewport bottom
+                
+                if (elementTop < windowHeight - elementVisible) {
+                    reveals[i].classList.add('active');
+                }
+            }
+        };
+        window.addEventListener('scroll', revealOnScroll);
+        // Trigger once on load in case some sections are already visible
+        window.addEventListener('load', revealOnScroll);
+    </script>
+</body>
+</html>
