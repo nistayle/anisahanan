@@ -11,28 +11,46 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
     <style>
-        /* Animasi Mengetik Formal & Halus */
-        .typing-effect {
-            display: inline-block;
-            border-right: 2px solid #ec4899; /* Pink Cursor */
-            white-space: nowrap;
-            overflow: hidden;
-            width: 0;
-            animation: 
-                typing 4s steps(35, end) infinite alternate,
-                blink 0.8s step-end infinite;
-        }
+        /* ==========================================================================
+   1. DEFAULT (MOBILE/HP): Teks aman, responsif, dan tidak terpotong
+   ========================================================================== */
+.typing-effect {
+    display: inline-block;
+    border-right: 2px solid #ec4899; /* Kursor Pink tetap berkedip */
+    white-space: normal;             /* Mengizinkan teks turun ke bawah di HP */
+    overflow: visible;               /* Memastikan teks tidak tersembunyi */
+    width: auto;                     /* Lebar otomatis mengikuti teks */
+    word-break: break-word;          /* Mencegah kata terpotong di tengah jalan */
+    animation: blink 0.8s step-end infinite; /* Hanya jalankan animasi kursor berkedip */
+}
 
-        @keyframes typing {
-            0% { width: 0; }
-            75% { width: 100%; }
-            100% { width: 100%; }
-        }
+/* ==========================================================================
+   2. DESKTOP (Layar >= 768px): Efek mengetik aktif dengan aman
+   ========================================================================== */
+@media (min-width: 768px) {
+    .typing-effect {
+        white-space: nowrap;         /* Teks dipaksa satu baris di desktop */
+        overflow: hidden;            /* Menyembunyikan teks sebelum diketik */
+        width: 0;                    /* Mulai dari lebar nol */
+        animation: 
+            typing 4s steps(35, end) infinite alternate,
+            blink 0.8s step-end infinite;
+    }
+}
 
-        @keyframes blink {
-            from, to { border-color: transparent }
-            50% { border-color: #ec4899; }
-        }
+/* ==========================================================================
+   3. ANIMASI KEYFRAMES
+   ========================================================================== */
+@keyframes typing {
+    0% { width: 0; }
+    75% { width: 100%; }
+    100% { width: 100%; }
+}
+
+@keyframes blink {
+    from, to { border-color: transparent; }
+    50% { border-color: #ec4899; }
+}
 
         /* Efek Glow Mengikuti Kursor */
         .glow-bg {
@@ -363,45 +381,52 @@
     </div>
 
     <!-- HERO SECTION -->
-<header class="relative pt-24 pb-20 md:pt-32 md:pb-24 px-4 sm:px-6 lg:px-8 overflow-hidden z-10">
+<!-- 1. Pastikan tag paling luar ini punya overflow-hidden untuk mencegah scroll kanan kirim -->
+<header class="relative pt-24 pb-20 md:pt-32 md:pb-24 px-4 sm:px-6 lg:px-8 overflow-hidden z-10 w-full">
     <div class="absolute inset-0 bg-[radial-gradient(circle_at_top_left,rgba(168,85,247,0.04),transparent_50%)]"></div>
     <div class="absolute inset-0 bg-[radial-gradient(circle_at_bottom_right,rgba(236,72,153,0.04),transparent_50%)]"></div>
     
-    <div class="max-w-5xl mx-auto flex flex-col-reverse md:flex-row items-center justify-between gap-12 relative z-10">
-        <div class="space-y-6 max-w-2xl text-center md:text-left">
+    <!-- 2. Kontainer utama: gunakan w-full dan max-w agar tidak melebihi layar hp -->
+    <div class="w-full max-w-5xl mx-auto flex flex-col-reverse md:flex-row items-center justify-between gap-8 md:gap-12 relative z-10">
+        
+        <!-- 3. Text Section: Hapus pembatas lebar yang kaku di mobile -->
+        <div class="w-full space-y-6 text-center md:text-left">
             <p class="text-xs font-bold uppercase tracking-widest text-purple-400">Portofolio Akademik & Profesional</p>
             
-            <h1 class="text-3xl sm:text-5xl font-bold text-white tracking-wide leading-tight">
-                Halo, Saya <span class="bg-gradient-to-r from-purple-400 via-fuchsia-400 to-pink-400 bg-clip-text text-transparent">Anisa Tri Hanan</span>
+            <!-- PERBAIKAN Teks Judul: Gunakan break-words agar teks nama yang panjang otomatis turun baris di HP -->
+            <h1 class="text-3xl sm:text-4xl md:text-5xl font-bold text-white tracking-wide leading-tight break-words">
+                Halo, Saya <span class="bg-gradient-to-r from-purple-400 via-fuchsia-400 to-pink-400 bg-clip-text text-transparent block sm:inline">Anisa Tri Hanan</span>
             </h1>
             
-            <div class="min-h-[4rem] sm:min-h-[2rem] flex items-center justify-center md:justify-start">
-                <span class="text-base sm:text-lg font-medium text-slate-300 tracking-wide typing-effect block">
+            <!-- PERBAIKAN Typing Effect Container -->
+            <!-- PENTING: Jika di CSS .typing-effect kamu ada 'whitespace: nowrap', hapus atau timpa dengan 'white-space: normal' di media query mobile -->
+            <div class="min-h-[3.5rem] sm:min-h-[2rem] flex items-center justify-center md:justify-start">
+                <span class="text-base sm:text-lg font-medium text-slate-300 tracking-wide typing-effect block normal-case">
                     Digital Business Student at PENS | 2D Asset Maker | Data & ML Enthusiast
                 </span>
             </div>
             
-            <p class="text-sm sm:text-base text-slate-400 leading-relaxed font-normal px-2 md:px-0">
+            <!-- PERBAIKAN Paragraf: Tambahkan break-words -->
+            <p class="text-sm sm:text-base text-slate-400 leading-relaxed font-normal break-words">
                 Saya merupakan lulusan SMK Negeri 10 Semarang dengan jurusan Pengembangan Perangkat Lunak dan Gim, saat ini melanjutkan di bidang bisnis digital dan fokus mengembangkan skill di sains data dan machine learning.
             </p>
             
+            <!-- Tombol -->
             <div class="flex flex-wrap justify-center md:justify-start gap-4 pt-2">
                 <a href="#kontak"
-                    class="group relative inline-flex items-center justify-center overflow-hidden rounded-full bg-gradient-to-r from-purple-500 via-fuchsia-500 to-pink-500 px-6 py-3 font-semibold text-white shadow-lg transition-all duration-300 hover:scale-105 hover:-translate-y-1 hover:shadow-[0_0_30px_rgba(236,72,153,0.4)] active:scale-95 text-sm sm:text-base">
-                    <span class="absolute inset-0 bg-white opacity-0 transition-opacity duration-300 group-hover:opacity-10"></span>
+                    class="group relative inline-flex items-center justify-center overflow-hidden rounded-full bg-gradient-to-r from-purple-500 via-fuchsia-500 to-pink-500 px-5 py-3 font-semibold text-white shadow-lg transition-all duration-300 hover:scale-105 hover:-translate-y-1 active:scale-95 text-sm">
                     <span class="relative z-10">Hubungkan Jejaring</span>
                 </a>
 
                 <a href="#projek"
-                    class="group inline-flex items-center justify-center rounded-full border border-slate-700 bg-zinc-900 px-6 py-3 font-semibold text-slate-200 shadow-md transition-all duration-300 hover:scale-105 hover:-translate-y-1 hover:border-pink-400 hover:bg-slate-800 hover:text-white active:scale-95 text-sm sm:text-base">
-                    <span class="transition-transform duration-300 group-hover:translate-x-1">
-                        Lihat Portofolio →
-                    </span>
+                    class="group inline-flex items-center justify-center rounded-full border border-slate-700 bg-zinc-900 px-5 py-3 font-semibold text-slate-200 shadow-md transition-all duration-300 hover:scale-105 hover:-translate-y-1 hover:border-pink-400 active:scale-95 text-sm">
+                    <span>Lihat Portofolio →</span>
                 </a>
             </div>
         </div>
         
-        <div class="w-48 h-48 sm:w-64 sm:h-64 bg-slate-900 p-1.5 rounded-2xl shadow-2xl border border-slate-800/80 flex-shrink-0">
+        <!-- Foto Section -->
+        <div class="w-44 h-44 sm:w-60 sm:h-60 bg-slate-900 p-1.5 rounded-2xl shadow-2xl border border-slate-800/80 flex-shrink-0">
             <img src="assets/anis2.jpg" alt="Foto Formal" class="w-full h-full object-cover rounded-xl filter brightness-95">
         </div>
     </div>
